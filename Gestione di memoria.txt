@@ -1,0 +1,36 @@
+Il computer che utilizziamo quotidiniamente incorpora al proprio interno tre diverse tipologie di memoria:
+•Hard disk
+•RAM
+•Cache
+
+In realtà molti computer comprendono anche una memoria specifica per la scheda video di dimensioni equivalenti a una frazione della memoria principale. Il sistema operativo non gestisce direttamente questa memoria che è utilizzata dal driver della scheda video realizzato dal produttore.
+
+La cacge del processore è normalmente gestita dall'hardware del computer e risulta trasparente al sistema operativo, che ne ignora esistenza e dimensione.
+Il suo scopo è quello di aumentare le prestazioni del computer memorizzando, in una memoria il cui accesso risulta estremamente veloce per il processore, le istruzioni e i dati contigui a quelli correntemente utilizzati.
+
+Il multi-processing realizzato dal sistema operativo ha come conseguenza che nella memoria principale del computer coesistano codice e dati di processi diversi; il gestore della memoria dovrà quindi assicurare: 
+•Necessaria disponibilità di memoria per il codice e i dati a ogni processo in esecuzione;
+•La protezione dei dati e delle istruzioni di ogni singolo processo da parte di acessi errati o maligni eseguiti da processi diversi;
+•Il riutilizzo per altri processi che ne facciano richiesta, della memoria non piu' utilizzata da processi terminati;
+•L'eventuale condivisione di aree di memoria tra processi cooperanti.
+Tutti i processori moderni contengono un componente hardware denominaro Memory Management Unit che agevola il sistema operativo nel compito di garantire una efficace, efficiente e sicura gestione della memoria.
+
+PAGINAZIONE DELLA MEMORIA E TRASLAZIONE DEGLI INDIRIZZI:
+Un metodo semplicistico per assegnare la memoria principale ai vari processi in esecuzione contemporanea consiste nell'alloccare a ogni processo un settore di memoria compreso tra un indirizzo iniziale e uno finale.
+Il gestore della memoria del sistema operativo dovrebbe a questo scopo scopo mantenere una tabella di indirizzi.
+Al momento della compilazione il programma eseguibile viene caricato assumento un indirizzo logico in cui la memoria disponibile per il codice e per i dati ha sempre inizio all'indirizzo 0: il programma viene caricato in memoria per l'esecuzione con questi indirizzi logici.
+Ma nel corso dell'esecuzione del programma gli indirizzi devono essere traslati sommando a ogni indirizzo logico l'indirizzo iniziale del settore di memoria principale assegnando al programma.
+Per ottenere un effettivo indirizzo fisico.
+
+Per quanto semplice questo schema di allocazione della memoria principale ha un grave difetto: Quando un processo termina, viene liberato il settore di memoria allocato per la sua esecuzione, ma la memoria libera di cui il sistema operativo dispone per l'allocazionea un nuovo processo rimane <framentata> in diversi settori non contigui.
+Il problema della frammentazione viene risolto dai processi e dai sistemi operativi impiegando la tecnica della paginazione della memoria:
+La memoria principale viene vista dal processore come un array di settori aventi tutti la stessa dimensione predefinita.
+Il modulo di gestione della memoria del sistema operativo assegna a ogni processore in esecuzione un numero di pagine sufficiente per ottenere il codice e i dati ma esse non necessariamente sono contigue.
+
+LA MEMORIA VIRTUALE:
+Un sistema operativo mantiene contemporaneamente attivi molti processi: nonostante le grandi dimensioni delle memoria principali dei computer attuali, è probabile che il numero complessivo delle pagine di memoria richiesto da tutti i processi attivi sia superiore al numero delle pagine di memoria fisica effettivamente disponibili.
+
+Sulla base di queste considerazioni praticamente tutti i sistemi operativi implementato la cosiddetta tecnica della memoria virtuale.
+Il gestore della memoria simula una disponibilità di pagine superiore al numero di pagine fisiche, salvando contemporaneamente le pagine che non dovessero trovare all'interno della memoria principale inm un'area specifica della memoria persistente del computer.
+I sistemi operativi che adottano la tecnica della memoria virtuale mantengono nella memoria di massa del computer - denominata area di sap o di paging - PEr la memorizzazione di tutte le pagine utilizzate dal gestore della memoria.
+Quest'area è organizzata in modo da identificare la posizione di ogni pagina - spesso chiamata frame - mediante un indice numero

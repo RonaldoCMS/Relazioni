@@ -1,0 +1,49 @@
+GESTIONE DEI PROGRAMMI:
+
+Tutti i sistemi operativi moderni sono in grado di eseguire un elevevato numero di programmi.
+Oltre alle applicazioni eseguite dall'utente, il sistema operativo esegue anche quelle di servizi.
+
+Un processo, è definito come un programma di esecuzione, mentre un programma è l'ambiente di esecuzione di un processo.
+
+MULTI-PROCESSING:
+L'utente ha la sensazione che le proprie applicazioni siano eseguite contemporaneamente dal computer: per esempio, ascoltare un bravo musicale mentre scrive un documento.
+In realtà l'esperienza di contemporaneità dell'utente è data dall'elevata velocità di esecuzione dei programmi da parte del computer.
+
+Il sistema operativo associa a ogni processo fin dal momento della creazione un identificativo numero univoco denominato PID (process ID)
+e un insieme di informazioni definito PCB (Process Control Block).
+Il PCB consente al sistema operativo di interromperlo in qualsiasi momento per riprenderne successivamente l'esecuzione e comprendere informazioni relative a :
+•Il PID e l'identificativo dell'utente che ha eseguito il processo.
+•Le risor hardware e software attualmente utilizzate dal processo.
+•Lo stato del processore al momento della sua ultima interruzione.
+•I dati relativi al processo e necessari al sistema operativo stesso.
+
+Le informazioni contenute nel PCB permettono al sistema operativo di passare la risorsa processore da un processo a un altro, interrompendo momentaneamente l'esecuzione del primo per riprendere contemporaneamente l'esecuzione del secondo.
+Questo passaggio si chiama context-switching e prevede il salvataggio del PCB del processo interrotto per ripristinare le informazioni contenute nel PCB del processo da eseguire.
+
+Il context-switching è un'attività del sistema operativo che impiega la risorsa processore per essere svolta.
+
+STATI DI UN PROCESSO:
+Ready > il processo non è attualmente in esecuzione ma è pronto per essere eseguito in quanto l'unica risorsa mancante è la CPU
+Wait > Il processo ha invocato un servizio del sistema operativo (per esempio ha iniziato un'operazione di lettura/scrittura da/su un file o è in attesa di una segnalazione da parte di un altro processo, cioè ha un richiesto una risorsa non ancora disponibile: non puo' essere eseguito fino al termine della richiesta)
+Run > Il processo è attualmente in esecuzione, cioè dispone di tutte le risorse necessarie al suo avanzamento.
+
+Politiche di Scheduling
+Senza l'intervento del sistema operativo, un processo prosegue la sua esecuzione fino alla terminazione o fino all'inoltro di una richiesta dal sistema operativo stesso, liberando il processore e passanto allo stato di wait.
+
+Alcuni processi, passano molto tempo nello stato di wait ad attendere come input un'azione che viene intercettata dal sistema operativo e successivamente inoltrata al processo interessato: sono definiti di tipo I/O bound.
+
+Altri processi, non rilasciano quasi mai il processore passando nello stato di wait: sono definiti di tipo CPU bound.
+
+Compito del gestore dei processi del sistema operativo è quello di ottimizzare l'uso del processore: avere piu' I/O bound contemporanemente in esecuzione aumenta l'utilizzazione del processore, ma l'esecuzione di uno o piu' processi CPU-bound ha come conseguenze un progressivo ritardo nell'esecuzione degli altri processi che, pur non avendo terminato l'attesa della richiesta avanzata al sistema operativo, dvono nuovamente rimanere a lungo in attesa che sia disponibile il processore. 
+In particolare, per i processi che interagiscono con l'utente, questo ritardo viene percepito come un maldifunzionamento e non è quindi accettabile.
+
+Per questo motivo i sistema operativi moderni adottano la tecnica del time-sharing per la gestione della risorsa processore: a ogni processo viene assegnato un quanto di tempo massimo dopo il quale deve obbligatoriamente rilasciare il processo passando dallo stato di Run a quello di Ready.
+Il classico algoritmo di schedulazione denominato round-robin abbina la tecnica del time-sharing con la politica FIFO di selezione dei processi in coda nello stato di Ready e consente all'utente del computer di avere la senmsazione di esecuzione contemporanea di piu' programmi interattivi.
+
+Nel caso che non vi siano processi in stato di Ready daeseguire il gestore dei processi esegue un particolare processo di sistema, taovlta chiamato idle, che configura il computer in un stato di basso consumo energetico.
+
+La politica FIFO ha come conseguenze che tutti i i processi sono selezionati per l'esecuzione in modo rigorosamente sequenziale.
+
+Multi-Threading in Windows e Linux.
+Nei moderni sistemi operativi, ogni singolo processo puo' essere composto da piu' elementi separati e attivi contemporaneamente, denominati thread e usualmente indentificati da un valore numerico univoco, che sono singolarmente schedulati per l'esecuzione da parte del gestore dei processi: a questo scopo a ogni thread è associato un TCB (Thread Control Block).
+ 
